@@ -6,10 +6,10 @@ radio.onReceivedString(function (receivedString) {
     } else if ("stop" == receivedString) {
         maqueen.motorStop(maqueen.Motors.All)
     } else if ("links" == receivedString) {
-        maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CCW, snelheid)
+        maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, snelheid / 3)
         maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, snelheid)
-    } else if ("recht" == receivedString) {
-        maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CCW, snelheid)
+    } else if ("rechts" == receivedString) {
+        maqueen.motorRun(maqueen.Motors.M2, maqueen.Dir.CW, snelheid / 3)
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, snelheid)
     } else if ("sneller" == receivedString) {
         snelheid += 50
@@ -20,6 +20,9 @@ radio.onReceivedString(function (receivedString) {
         strip.show()
         maqueen.writeLED(maqueen.LED.LEDRight, maqueen.LEDswitch.turnOn)
         maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOn)
+    } else if ("licht uit" == receivedString) {
+        maqueen.writeLED(maqueen.LED.LEDRight, maqueen.LEDswitch.turnOff)
+        maqueen.writeLED(maqueen.LED.LEDLeft, maqueen.LEDswitch.turnOff)
     } else {
         basic.showString(receivedString)
     }
@@ -34,7 +37,7 @@ strip.showRainbow(1, 270)
 basic.forever(function () {
     afstand = maqueen.Ultrasonic(PingUnit.Centimeters)
     if (afstand < 8) {
-        music.playMelody("C5 A B G A F G E ", 240)
+        music.playMelody("C D C D C D C C5 ", 240)
     }
     basic.pause(100)
 })
